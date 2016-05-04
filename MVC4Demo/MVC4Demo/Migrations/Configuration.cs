@@ -31,23 +31,22 @@ namespace MVC4Demo.Migrations
 
             var students = new List<Student>
             {
-                new Student {   FirstMidName = "Nigel",
-                                LastName = "John",
-                                EnrollmentDate = DateTime.Parse("2010-09-01")
-                            },
-                new Student {   FirstMidName = "Roland",
-                                LastName = "Deutchend",
-                                EnrollmentDate = DateTime.Parse("2016-11-21")
-                            },
-               new Student {   FirstMidName = "Arnold",
-                                LastName = "Hey",
-                                EnrollmentDate = DateTime.Parse("2110-08-30")
-                            },
-               new Student {   FirstMidName = "Snake",
-                                LastName = "Pliskin",
-                                EnrollmentDate = DateTime.Parse("2009-03-18")
-                            }
-
+                new Student { FirstMidName = "Carson",   LastName = "Alexander",
+                    EnrollmentDate = DateTime.Parse("2010-09-01") },
+                new Student { FirstMidName = "Meredith", LastName = "Alonso",
+                    EnrollmentDate = DateTime.Parse("2012-09-01") },
+                new Student { FirstMidName = "Arturo",   LastName = "Anand",
+                    EnrollmentDate = DateTime.Parse("2013-09-01") },
+                new Student { FirstMidName = "Gytis",    LastName = "Barzdukas",
+                    EnrollmentDate = DateTime.Parse("2012-09-01") },
+                new Student { FirstMidName = "Yan",      LastName = "Li",
+                    EnrollmentDate = DateTime.Parse("2012-09-01") },
+                new Student { FirstMidName = "Peggy",    LastName = "Justice",
+                    EnrollmentDate = DateTime.Parse("2011-09-01") },
+                new Student { FirstMidName = "Laura",    LastName = "Norman",
+                    EnrollmentDate = DateTime.Parse("2013-09-01") },
+                new Student { FirstMidName = "Nino",     LastName = "Olivetto",
+                    EnrollmentDate = DateTime.Parse("2005-08-11") }
             };
 
             students.ForEach(s => context.Students.AddOrUpdate(p => p.LastName, s));
