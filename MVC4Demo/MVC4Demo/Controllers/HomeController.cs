@@ -10,9 +10,10 @@ namespace MVC4Demo.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Message = "Welcome to Contoso University";
+
             return View();
         }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -24,18 +24,21 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Students", "Index", "Student")</li>
-                    <li>@Html.ActionLink("Instructors", "Index", "Instructors")</li>
-                    <li>@Html.ActionLink("Departments", "Index", "Department"</li>
+                    <li>@Html.ActionLink("Courses", "Index", "Course")</li>
+                    <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                    <li>@Html.ActionLink("Departments", "Index", "Department")</li>
                 </ul>
-                <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
             </div>
         </div>
+    </div>
+    <div id="body">
+        @RenderSection("featured", required: false)
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Contoso University</p>
+            <p>&copy; @DateTime.Now.Year -  Contoso University</p>
         </footer>
     </div>
 
