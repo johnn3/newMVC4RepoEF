@@ -10,7 +10,7 @@ namespace MVC4Demo.Models
     {
         A,B,C,D,F
     }
-    public class Enrollments
+    public class Enrollment
     {
         public int EnrollmentID { get; set; }
         public int CourseID { get; set; }
