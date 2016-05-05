@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC4Demo.DAL;
 using MVC4Demo.Models;
+using Webdiyer.WebControls.Mvc.PagedList;
 
 namespace MVC4Demo.Controllers
 {
@@ -16,12 +17,26 @@ namespace MVC4Demo.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            //added for the pagination
+            ViewBag.CurrentSort = sortOrder;
             //The two ViewBag variables are used so that the view can configure the column
             //heading hyperlinks with the appropriate query string values
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+
+            //defaults to first page
+            if (searchString != null)
+            {
+                page = 1;
+            }
+
+            else
+            {
+                searchString = currentFilter;
+            }
+
             var students = from s in db.Students
                            select s;
 
