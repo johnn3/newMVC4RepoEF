@@ -16,15 +16,22 @@ namespace MVC4Demo.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
-
             //The two ViewBag variables are used so that the view can configure the column
             //heading hyperlinks with the appropriate query string values
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
             var students = from s in db.Students
                            select s;
+
+            // check to see if a search term was added
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
+                           || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
+            }
+
             switch (sortOrder)
             {
                 case "Name_desc":
