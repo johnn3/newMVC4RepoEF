@@ -1,5 +1,5 @@
 ======
-Entity Frame work MVC4 .NET paractice
+Entity Frame work MVC4 .NET practice
 ======
 
 As indicated, this is merely a demo of the MVC4 that microsoft provides
