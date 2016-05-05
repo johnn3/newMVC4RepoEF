@@ -16,8 +16,29 @@ namespace MVC4Demo.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+
+            var students = from s in db.Students
+                           select s;
+            switch(sortOrder)
+            {
+                case "Name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "Date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
             return View(db.Students.ToList());
         }
 
@@ -153,12 +174,11 @@ namespace MVC4Demo.Controllers
 
         }
 
+        //To make sure that database connections are properly closed and the 
+        //resources they hold freed up, you should see to it that the context instance is disposed. 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            db.Dispose();
             base.Dispose(disposing);
         }
     }
