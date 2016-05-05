@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC4Demo.DAL;
 using MVC4Demo.Models;
-using Webdiyer.WebControls.Mvc.PagedList;
+using PagedList;
 
 namespace MVC4Demo.Controllers
 {
@@ -17,6 +17,7 @@ namespace MVC4Demo.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
+        //Changed the parameters w/ page param, current sort order, and filter
         public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             //added for the pagination
@@ -37,6 +38,7 @@ namespace MVC4Demo.Controllers
                 searchString = currentFilter;
             }
 
+            //query for students
             var students = from s in db.Students
                            select s;
 
@@ -62,7 +64,10 @@ namespace MVC4Demo.Controllers
                     students = students.OrderBy(s => s.LastName);
                     break;
             }
-            return View(students.ToList());
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1); //return the value of page if it has a value, or return 1 if page is null
+            return View(students.ToPagedList(pageNumber, pageSize));
 
         }
 
