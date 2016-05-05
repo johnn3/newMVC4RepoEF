@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace MVC4Demo.Models
 {
@@ -12,12 +12,12 @@ namespace MVC4Demo.Models
 
         [Required]
         [Display(Name = "LastName")]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
 
         [Required]
         [Display(Name = "FirstName")]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 1)]
         public string FirstName { get; set; }
 
         [DataType(DataType.Date)]
