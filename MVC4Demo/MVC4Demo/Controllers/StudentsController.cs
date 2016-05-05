@@ -23,10 +23,9 @@ namespace MVC4Demo.Controllers
             //heading hyperlinks with the appropriate query string values
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
-
             var students = from s in db.Students
                            select s;
-            switch(sortOrder)
+            switch (sortOrder)
             {
                 case "Name_desc":
                     students = students.OrderByDescending(s => s.LastName);
@@ -41,7 +40,8 @@ namespace MVC4Demo.Controllers
                     students = students.OrderBy(s => s.LastName);
                     break;
             }
-            return View(db.Students.ToList());
+            return View(students.ToList());
+
         }
 
         // GET: Students/Details/5
