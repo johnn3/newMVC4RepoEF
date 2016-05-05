@@ -109,11 +109,14 @@ namespace MVC4Demo.Controllers
         }
 
         // GET: Students/Delete/5
-        public ActionResult Delete(int? id)
+        //This code accepts an optional Boolean parameter that indicates whether it was called after a failure to save changes.
+        //This parameter is false when the HttpGet Delete method is called without a previous failure. When it is called by the 
+        //HttpPost Delete method in response to a database update error, the parameter is true and an error message is passed to the view.
+        public ActionResult Delete(bool? saveChangesError=false, int id = 0)
         {
-            if (id == null)
+            if (saveChangesError.GetValueOrDefault())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists, please see your system administrator";
             }
             Student student = db.Students.Find(id);
             if (student == null)
@@ -124,14 +127,30 @@ namespace MVC4Demo.Controllers
         }
 
         // POST: Students/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id) //Changed DeleteConfirmed to Delete which will give you a unique token signature
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                //regular applications
+                //Student student = db.Students.Find(id);
+                //db.Students.Remove(student);
+
+                //new will help with high volume applications
+                Student studentToDelete = new Student() { StudentID = id };
+                db.Entry(studentToDelete).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+
+            catch (DataException /* dex */)
+            {
+                //uncomment dex and log error.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+
+            return RedirectToAction("Index"); // go back to the index page
+
         }
 
         protected override void Dispose(bool disposing)
