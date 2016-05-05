@@ -10,6 +10,8 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
+    <!--this was changed for a sortable table shown-->
+    <!--
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
@@ -21,8 +23,20 @@
             @Html.DisplayNameFor(model => model.EnrollmentDate)
         </th>
         <th></th>
+    </tr> 
+        -->
+    <tr>
+        <th>
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParam})
+        </th>
+        <th></th> <!-- for the edit, del, details etc,.-->
     </tr>
-
 @foreach (var item in Model) {
     <tr>
         <td>

@@ -19,6 +19,8 @@ namespace MVC4Demo.Controllers
         public ActionResult Index(string sortOrder)
         {
 
+            //The two ViewBag variables are used so that the view can configure the column
+            //heading hyperlinks with the appropriate query string values
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
 
