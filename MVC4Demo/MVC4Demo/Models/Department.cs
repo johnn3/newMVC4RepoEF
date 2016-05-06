@@ -28,7 +28,7 @@ namespace MVC4Demo.Models
         //as the foreign key to the Instructor entity, and a question mark is added 
         //after the int type designation to mark the property as nullable.The navigation 
         //property is named Administrator but holds an Instructor entity
-        public int? IntructorID { get; set; }
+        public int? InstructorID { get; set; }
 
         public virtual Instructor Administrator { get; set; }
         public virtual ICollection<Course> Courses { get; set; }

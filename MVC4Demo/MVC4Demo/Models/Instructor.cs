@@ -18,7 +18,7 @@ namespace MVC4Demo.Models
         [Required]
         [Display(Name = "FirstName")]
         [StringLength(50, MinimumLength = 1)]
-        public string FirstName { get; set; }
+        public string FirstMidName { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
