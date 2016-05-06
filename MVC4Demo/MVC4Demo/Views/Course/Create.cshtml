@@ -10,7 +10,8 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(true)
+
     <div class="form-horizontal">
         <h4>Course</h4>
         <hr />
