@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC4Demo.DAL;
 using MVC4Demo.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace MVC4Demo.Controllers
 {
@@ -49,11 +50,12 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
+        public ActionResult Create(
+   [Bind(Include = "CourseID,Title,Credits,DepartmentID")]
+   Course course)
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
                     db.Courses.Add(course);
@@ -61,13 +63,11 @@ namespace MVC4Demo.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
-            catch (DataException /* dex */)
+            catch (RetryLimitExceededException /* dex */)
             {
-                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
+                //Log the error (uncomment dex variable name and add a line here to write a log.)
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
-
             PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
         }
@@ -80,33 +80,44 @@ namespace MVC4Demo.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Course course = db.Courses.Find(id);
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
             PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
         }
 
+
         // POST: Course/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
+        public ActionResult EditPost(int? id)
         {
-            try
+            if (id == null)
             {
-                if (ModelState.IsValid)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var courseToUpdate = db.Courses.Find(id);
+            if (TryUpdateModel(courseToUpdate, "",
+               new string[] { "Title", "Credits", "DepartmentID" }))
+            {
+                try
                 {
-                    db.Entry(course).State = EntityState.Modified;
                     db.SaveChanges();
+
                     return RedirectToAction("Index");
                 }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
             }
-            catch (DataException /* dex */)
-            {
-                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-            }
-            PopulateDepartmentsDropDownList(course.DepartmentID);
-            return View(course);
+            PopulateDepartmentsDropDownList(courseToUpdate.DepartmentID);
+            return View(courseToUpdate);
         }
 
         //PopulateDepartmentsDropDownList method gets a list of all departments 
