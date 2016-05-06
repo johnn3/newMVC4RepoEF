@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MVC4Demo.DAL;
 using MVC4Demo.Models;
 using MVC4Demo.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace MVC4Demo.Controllers
 {
@@ -122,7 +123,13 @@ namespace MVC4Demo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instructor instructor = db.Instructors.Find(id);
+            // Instructor instructor = db.Instructors.Find(id); //setup for a drop down but not a text box
+
+            Instructor instructor = db.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Where(i => i.InstructorID == id)
+                .Single();
+
             if (instructor == null)
             {
                 return HttpNotFound();
@@ -136,18 +143,37 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InstructorID,LastName,FirstMidName,HireDate")] Instructor instructor)
+        public ActionResult Edit(int id, FormCollection formCollection)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(instructor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", instructor.InstructorID);
-            return View(instructor);
-        }
+            var instructorToUpdate = db.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Where(i => i.InstructorID == id)
+                .Single();
 
+            if (TryUpdateModel(instructorToUpdate, "",
+               new string[] { "LastName", "FirstMidName", "HireDate", "OfficeAssignment" }))
+            {
+                try
+                {
+                    if (String.IsNullOrWhiteSpace(instructorToUpdate.OfficeAssignment.Location))
+                    {
+                        instructorToUpdate.OfficeAssignment = null;
+                    }
+
+                    db.Entry(instructorToUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", id);
+            return View(instructorToUpdate);
+        }
         // GET: Instructors/Delete/5
         public ActionResult Delete(int? id)
         {
