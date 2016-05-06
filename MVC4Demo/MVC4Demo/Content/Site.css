@@ -3,6 +3,12 @@
     padding-bottom: 20px;
 }
 
+/* for the table select row*/
+.selectedrow
+{
+    background-color: #0094ff;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
