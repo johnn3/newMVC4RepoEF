@@ -27,7 +27,7 @@ namespace MVC4Demo.Models
         
         public string FullName
         {
-            get { return LastName + ", " + FirstName; }
+            get { return LastName + ", " + FirstMidName; }
         }
 
         public virtual ICollection<Course> Courses { get; set; }
