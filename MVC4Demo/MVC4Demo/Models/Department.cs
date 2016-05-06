@@ -19,7 +19,15 @@ namespace MVC4Demo.Models
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
+        //the Column attribute is being used to change SQL data
+        //type mapping so that the column will be defined using the SQL Server money type in the database
         [Display(Name = "Administrator")]
+
+        //•A department may or may not have an administrator, and an administrator 
+        //is always an instructor. Therefore the InstructorID property is included 
+        //as the foreign key to the Instructor entity, and a question mark is added 
+        //after the int type designation to mark the property as nullable.The navigation 
+        //property is named Administrator but holds an Instructor entity
         public int? IntructorID { get; set; }
 
         public virtual Instructor Administrator { get; set; }
