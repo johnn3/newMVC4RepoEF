@@ -18,7 +18,7 @@ namespace MVC4Demo.Controllers
         // GET: Course
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Department);
+            var courses = db.Courses.Include(c => c.Department); //this is apparently eager loading
             return View(courses.ToList());
         }
 
