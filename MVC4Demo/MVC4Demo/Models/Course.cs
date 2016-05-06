@@ -22,8 +22,18 @@ namespace MVC4Demo.Models
         [Display(Name = "Department")]
         public int DepartmentID { get; set; }
 
+        //Foreign Keys
+
+        //The course entity has a foreign key property DepartmentID which points to the 
+        //related Department entity and it has a Department navigation property.The Entity
+        //Framework doesn't require you to add a foreign key property to your data model 
+        //when you have a navigation property for a related entity.  EF automatically creates 
+        //foreign keys in the database wherever they are needed. But having the foreign key in the
+        //data model can make updates simpler and more efficient. 
         public virtual Department Department { get; set; }
+        //A course can have any number of students enrolled in it, so the Enrollments navigation property is a collection: 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
+        //A course may be taught by multiple instructors, so the Instructors navigation property is a collection: 
         public virtual ICollection<Instructor> Instructors { get; set; }
     }
 }
