@@ -10,9 +10,14 @@ namespace MVC4Demo.Models
     public class Student
     {
         public int StudentID { get; set; }
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
-        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        [StringLength(50, MinimumLength =1, ErrorMessage = "First name cannot be longer than 50 characters.")]
+
+        public string FullName
+        {
+            get { return LastName + ", " + FirstMidName; }
+        }
 
         //The addition of the Column attribute changes the model backing the SchoolContext, 
         //so it won't match the database. Enter the following commands in the PMC to create another migration:
