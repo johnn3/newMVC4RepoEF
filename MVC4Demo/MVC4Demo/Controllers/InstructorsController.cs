@@ -47,8 +47,28 @@ namespace MVC4Demo.Controllers
             if (courseID != null)
             {
                 ViewBag.CourseID = courseID.Value;
+                /*
+                //eager loading
                 viewModel.Enrollments = viewModel.Courses.Where(
                     x => x.CourseID == courseID).Single().Enrollments;
+                    */
+
+                //explicit loading
+
+                //first get entry
+                var selectedCourse = viewModel.Courses.Where(x => x.CourseID == courseID).Single();
+                //using the selected course, find out who is enrolled and load this as a db selection
+                //and reload this
+                db.Entry(selectedCourse).Collection(x => x.Enrollments).Load();
+                //go through the 
+                foreach (Enrollment enrollment in selectedCourse.Enrollments)
+                {
+                    //explicitly loads each Enrollment entity's related Student entity
+                    db.Entry(enrollment).Reference(x => x.Student).Load();
+                }
+
+                viewModel.Enrollments = selectedCourse.Enrollments;
+
             }
 
 
