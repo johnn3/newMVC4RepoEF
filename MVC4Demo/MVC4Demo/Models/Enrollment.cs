@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MVC4Demo.Models
 {
@@ -13,6 +12,8 @@ namespace MVC4Demo.Models
         public int EnrollmentID { get; set; }
         public int CourseID { get; set; }
         public int StudentID { get; set; }
+
+        [DisplayFormat(NullDisplayText = "no grade")]
         public Grade? Grade { get; set; } //the question mark beside it indicates the fiekd is nullable
 
         public virtual Course Course { get; set; }
