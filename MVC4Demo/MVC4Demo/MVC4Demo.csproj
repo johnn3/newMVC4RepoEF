@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201605052129554_ColumnFirstName.Designer.cs">
       <DependentUpon>201605052129554_ColumnFirstName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605061531597_Chap4.cs" />
+    <Compile Include="Migrations\201605061531597_Chap4.Designer.cs">
+      <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -269,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605052129554_ColumnFirstName.resx">
       <DependentUpon>201605052129554_ColumnFirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605061531597_Chap4.resx">
+      <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
