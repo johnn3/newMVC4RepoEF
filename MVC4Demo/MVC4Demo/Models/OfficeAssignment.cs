@@ -9,7 +9,8 @@ namespace MVC4Demo.Models
 
         [Key][ForeignKey("Instructor")]
         public int InstructorID { get; set; }
-        [StringLength(50)][Display(Name = "Office Location")] 
+        [StringLength(50)][Display(Name = "Office Location")]
+        //one-to-zero-or-one relationship  between the Instructor and the OfficeAssignment entities
         public virtual Instructor Instructor { get; set; }
     }
 }
