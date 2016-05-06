@@ -17,6 +17,11 @@ namespace MVC4Demo.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            //For the many - to - many relationship between the Instructor and Course entities,
+            //the code specifies the table and column names for the join table.Code First can 
+            //configure the many - to - many relationship for you without this code, but if you
+            //don't call it, you will get default names such as InstructorInstructorID for the 
+            //InstructorID column.
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Instructors).WithMany(i => i.Courses)
                 .Map(t => t.MapLeftKey("CourseID")
