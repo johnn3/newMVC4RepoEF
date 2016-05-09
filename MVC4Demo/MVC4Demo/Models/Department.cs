@@ -23,6 +23,11 @@ namespace MVC4Demo.Models
         //type mapping so that the column will be defined using the SQL Server money type in the database
         [Display(Name = "Administrator")]
 
+        // A conceurrency Property to manage row edits for the department
+        //entity
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
         //•A department may or may not have an administrator, and an administrator 
         //is always an instructor. Therefore the InstructorID property is included 
         //as the foreign key to the Instructor entity, and a question mark is added 
