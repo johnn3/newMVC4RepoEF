@@ -13,7 +13,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace MVC4Demo.Controllers
 {
-    public class InstructorsController : Controller
+    public class InstructorController : Controller
     {
         private SchoolContext db = new SchoolContext();
 
@@ -127,15 +127,36 @@ namespace MVC4Demo.Controllers
 
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
+                .Include(i => i.Courses)
                 .Where(i => i.InstructorID == id)
                 .Single();
+
+            PopulateAssignedCourseData(instructor); // for eager loading of data
 
             if (instructor == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", instructor.InstructorID);
+            //ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", instructor.InstructorID); 
+            //was replaced by the PopulateAssignedCourseData method
             return View(instructor);
+        }
+
+        private void PopulateAssignedCourseData(Instructor instructor)
+        {
+            var allCourses = db.Courses;
+            var instructorCourses = new HashSet<int>(instructor.Courses.Select(c => c.CourseID));
+            var viewModel = new List<AssignedCourseData>();
+            foreach (var course in allCourses)
+            {
+                viewModel.Add(new AssignedCourseData
+                {
+                    CourseID = course.CourseID,
+                    Title = course.Title,
+                    Assigned = instructorCourses.Contains(course.CourseID)
+                });
+            }
+            ViewBag.Courses = viewModel;
         }
 
         // POST: Instructors/Edit/5
@@ -143,10 +164,11 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection formCollection)
+        public ActionResult Edit(int id, FormCollection formCollection, string[] selectedCourses)
         {
             var instructorToUpdate = db.Instructors
                 .Include(i => i.OfficeAssignment)
+                .Include(i => i.Courses)
                 .Where(i => i.InstructorID == id)
                 .Single();
 
@@ -160,6 +182,8 @@ namespace MVC4Demo.Controllers
                         instructorToUpdate.OfficeAssignment = null;
                     }
 
+                    UpdateInstructorCourses(selectedCourses, instructorToUpdate); //
+
                     db.Entry(instructorToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -171,8 +195,41 @@ namespace MVC4Demo.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-            ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", id);
+            // ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", id);
+            //was replaced by the PopulateAssignedCourseData method
+
+            PopulateAssignedCourseData(instructorToUpdate);
             return View(instructorToUpdate);
+        }
+
+    private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
+        {
+            if (selectedCourses == null)
+            {
+                instructorToUpdate.Courses = new List<Course>();
+                return;
+            }
+
+            var selectedCoursesHS = new HashSet<string>(selectedCourses);
+            var instructorCourses = new HashSet<int>
+                (instructorToUpdate.Courses.Select(c => c.CourseID));
+            foreach (var course in db.Courses)
+            {
+                if (selectedCoursesHS.Contains(course.CourseID.ToString()))
+                {
+                    if (!instructorCourses.Contains(course.CourseID))
+                    {
+                        instructorToUpdate.Courses.Add(course);
+                    }
+                }
+                else
+                {
+                    if (instructorCourses.Contains(course.CourseID))
+                    {
+                        instructorToUpdate.Courses.Remove(course);
+                    }
+                }
+            }
         }
         // GET: Instructors/Delete/5
         public ActionResult Delete(int? id)
