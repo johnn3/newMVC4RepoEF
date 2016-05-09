@@ -204,17 +204,26 @@ namespace MVC4Demo.Controllers
 
     private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
         {
+            //If no check boxes were selected, the code in UpdateInstructorCourses 
+            //initializes the Courses navigation property with an empty collection:
             if (selectedCourses == null)
             {
                 instructorToUpdate.Courses = new List<Course>();
                 return;
             }
 
+            //The code then loops through all courses in the database and checks each
+            //course against the ones currently assigned to the instructor versus the 
+            //ones that were selected in the view. To facilitate efficient lookups, the
+            //latter two collections are stored in HashSet objects
             var selectedCoursesHS = new HashSet<string>(selectedCourses);
             var instructorCourses = new HashSet<int>
                 (instructorToUpdate.Courses.Select(c => c.CourseID));
             foreach (var course in db.Courses)
             {
+                //If the check box for a course was selected but the course isn't in
+                //the Instructor.Courses navigation property, the course is added to
+                //the collection in the navigation property.
                 if (selectedCoursesHS.Contains(course.CourseID.ToString()))
                 {
                     if (!instructorCourses.Contains(course.CourseID))
@@ -222,6 +231,9 @@ namespace MVC4Demo.Controllers
                         instructorToUpdate.Courses.Add(course);
                     }
                 }
+                //If the check box for a course wasn't selected, but the course is 
+                //in the Instructor.Courses navigation property, the course is removed 
+                //from the navigation property.
                 else
                 {
                     if (instructorCourses.Contains(course.CourseID))
