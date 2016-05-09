@@ -258,7 +258,13 @@ namespace MVC4Demo.Controllers
             return View(instructor);
         }
 
+
         // POST: Instructors/Delete/5
+        //If the instructor is assigned as administrator of any department
+        //, removes theinstructor assignment from that department. Without 
+        //this code, you would get a referential integrity error if you 
+        //tried to delete an instructor who was assigned as administrator 
+        //for a department. 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
