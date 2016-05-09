@@ -170,6 +170,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HelloWorldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorsController.cs" />
@@ -193,6 +194,10 @@
     <Compile Include="Migrations\201605061531597_Chap4.cs" />
     <Compile Include="Migrations\201605061531597_Chap4.Designer.cs">
       <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605092047006_RowVersion.cs" />
+    <Compile Include="Migrations\201605092047006_RowVersion.Designer.cs">
+      <DependentUpon>201605092047006_RowVersion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -295,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605061531597_Chap4.resx">
       <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605092047006_RowVersion.resx">
+      <DependentUpon>201605092047006_RowVersion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
