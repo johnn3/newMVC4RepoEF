@@ -13,7 +13,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace MVC4Demo.Controllers
 {
-    public class InstructorController : Controller
+    public class InstructorsController : Controller
     {
         private SchoolContext db = new SchoolContext();
 
