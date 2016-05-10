@@ -179,25 +179,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605042041541_InitialCreate.cs" />
-    <Compile Include="Migrations\201605042041541_InitialCreate.Designer.cs">
-      <DependentUpon>201605042041541_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201605101822225_InitialCreate.cs" />
+    <Compile Include="Migrations\201605101822225_InitialCreate.Designer.cs">
+      <DependentUpon>201605101822225_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605052121523_MaxLengthOnNames.cs" />
-    <Compile Include="Migrations\201605052121523_MaxLengthOnNames.Designer.cs">
-      <DependentUpon>201605052121523_MaxLengthOnNames.cs</DependentUpon>
+    <Compile Include="Migrations\201605101836152_MaxLengthOnNames.cs" />
+    <Compile Include="Migrations\201605101836152_MaxLengthOnNames.Designer.cs">
+      <DependentUpon>201605101836152_MaxLengthOnNames.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605052129554_ColumnFirstName.cs" />
-    <Compile Include="Migrations\201605052129554_ColumnFirstName.Designer.cs">
-      <DependentUpon>201605052129554_ColumnFirstName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605061531597_Chap4.cs" />
-    <Compile Include="Migrations\201605061531597_Chap4.Designer.cs">
-      <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605092047006_RowVersion.cs" />
-    <Compile Include="Migrations\201605092047006_RowVersion.Designer.cs">
-      <DependentUpon>201605092047006_RowVersion.cs</DependentUpon>
+    <Compile Include="Migrations\201605101838092_Chap4.cs" />
+    <Compile Include="Migrations\201605101838092_Chap4.Designer.cs">
+      <DependentUpon>201605101838092_Chap4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -241,7 +233,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -290,20 +284,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605042041541_InitialCreate.resx">
-      <DependentUpon>201605042041541_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605101822225_InitialCreate.resx">
+      <DependentUpon>201605101822225_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605052121523_MaxLengthOnNames.resx">
-      <DependentUpon>201605052121523_MaxLengthOnNames.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605101836152_MaxLengthOnNames.resx">
+      <DependentUpon>201605101836152_MaxLengthOnNames.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605052129554_ColumnFirstName.resx">
-      <DependentUpon>201605052129554_ColumnFirstName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605061531597_Chap4.resx">
-      <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605092047006_RowVersion.resx">
-      <DependentUpon>201605092047006_RowVersion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605101838092_Chap4.resx">
+      <DependentUpon>201605101838092_Chap4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

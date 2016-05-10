@@ -7,13 +7,13 @@ namespace MVC4Demo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Chap4 : IMigrationMetadata
+    public sealed partial class MaxLengthOnNames : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Chap4));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MaxLengthOnNames));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605061531597_Chap4"; }
+            get { return "201605101836152_MaxLengthOnNames"; }
         }
         
         string IMigrationMetadata.Source

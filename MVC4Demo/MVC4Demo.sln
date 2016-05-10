@@ -7,6 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC4Demo", "MVC4Demo\MVC4De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC4Demo.Tests", "MVC4Demo.Tests\MVC4Demo.Tests.csproj", "{ADB53BBD-11B4-4A5C-9549-10221532F30C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContosoUniversity", "..\..\MVC4Demao\MVC4EFNET\ContosoUniversity\ContosoUniversity.csproj", "{18CEBC88-A40B-4121-9F38-8F02DC4FDB3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C65C7EAD-055E-4D2B-A553-ED35BCA4DE34}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\MVC4Demao\MVC4EFNET\.nuget\NuGet.Config = ..\..\MVC4Demao\MVC4EFNET\.nuget\NuGet.Config
+		..\..\MVC4Demao\MVC4EFNET\.nuget\NuGet.exe = ..\..\MVC4Demao\MVC4EFNET\.nuget\NuGet.exe
+		..\..\MVC4Demao\MVC4EFNET\.nuget\NuGet.targets = ..\..\MVC4Demao\MVC4EFNET\.nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +30,10 @@ Global
 		{ADB53BBD-11B4-4A5C-9549-10221532F30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB53BBD-11B4-4A5C-9549-10221532F30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB53BBD-11B4-4A5C-9549-10221532F30C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18CEBC88-A40B-4121-9F38-8F02DC4FDB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18CEBC88-A40B-4121-9F38-8F02DC4FDB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18CEBC88-A40B-4121-9F38-8F02DC4FDB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18CEBC88-A40B-4121-9F38-8F02DC4FDB3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
