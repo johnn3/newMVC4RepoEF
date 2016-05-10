@@ -11,7 +11,7 @@ namespace MVC4Demo.Models
     {
         //this all gets referenced in the person abstract class
         /*
-        public int StudentID { get; set; }
+        public int PersonID { get; set; }
         [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
         [StringLength(50, MinimumLength =1, ErrorMessage = "First name cannot be longer than 50 characters.")]

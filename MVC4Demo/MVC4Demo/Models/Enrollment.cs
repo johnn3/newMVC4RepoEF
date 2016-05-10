@@ -11,7 +11,7 @@ namespace MVC4Demo.Models
     {
         public int EnrollmentID { get; set; }
         public int CourseID { get; set; }
-        public int StudentID { get; set; }
+        public int PersonID { get; set; }
 
         [DisplayFormat(NullDisplayText = "no grade")]
         public Grade? Grade { get; set; } //the question mark beside it indicates the fiekd is nullable

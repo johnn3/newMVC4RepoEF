@@ -139,56 +139,56 @@ namespace MVC4Demo.Migrations
             var enrollments = new List<Enrollment>
             {
                 new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Alexander").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Alexander").PersonID,
                     CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
                     Grade = Grade.A
                 },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Alexander").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Alexander").PersonID,
                     CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID,
                     Grade = Grade.C
                  },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Alexander").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Alexander").PersonID,
                     CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID,
                     Grade = Grade.B
                  },
                  new Enrollment {
-                     StudentID = students.Single(s => s.LastName == "Alonso").StudentID,
+                     PersonID = students.Single(s => s.LastName == "Alonso").PersonID,
                     CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID,
                     Grade = Grade.B
                  },
                  new Enrollment {
-                     StudentID = students.Single(s => s.LastName == "Alonso").StudentID,
+                     PersonID = students.Single(s => s.LastName == "Alonso").PersonID,
                     CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID,
                     Grade = Grade.B
                  },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Alonso").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Alonso").PersonID,
                     CourseID = courses.Single(c => c.Title == "Composition" ).CourseID,
                     Grade = Grade.B
                  },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Anand").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Anand").PersonID,
                     CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID
                  },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Anand").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Anand").PersonID,
                     CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
                     Grade = Grade.B
                  },
                 new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Barzdukas").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Barzdukas").PersonID,
                     CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
                     Grade = Grade.B
                  },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Li").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Li").PersonID,
                     CourseID = courses.Single(c => c.Title == "Composition").CourseID,
                     Grade = Grade.B
                  },
                  new Enrollment {
-                    StudentID = students.Single(s => s.LastName == "Justice").StudentID,
+                    PersonID = students.Single(s => s.LastName == "Justice").PersonID,
                     CourseID = courses.Single(c => c.Title == "Literature").CourseID,
                     Grade = Grade.B
                  }
@@ -198,7 +198,7 @@ namespace MVC4Demo.Migrations
             {
                 var enrollmentInDataBase = context.Enrollments.Where(
                     s =>
-                         s.Student.StudentID == e.StudentID &&
+                         s.Student.PersonID == e.PersonID &&
                          s.Course.CourseID == e.CourseID).SingleOrDefault();
                 if (enrollmentInDataBase == null)
                 {

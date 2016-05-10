@@ -138,7 +138,7 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Edit([Bind(Include = "PersonID,LastName,FirstMidName,EnrollmentDate")] Student student)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace MVC4Demo.Controllers
                 //db.Students.Remove(student);
 
                 //new will help with high volume applications
-                Student studentToDelete = new Student() { StudentID = id };
+                Student studentToDelete = new Student() { PersonID = id };
                 db.Entry(studentToDelete).State = EntityState.Deleted;
                 db.SaveChanges();
             }
