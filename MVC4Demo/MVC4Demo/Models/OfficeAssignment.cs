@@ -8,7 +8,7 @@ namespace MVC4Demo.Models
         //There's a one-to-zero-or-one relationship  between the Instructor and the OfficeAssignment entities
 
         [Key][ForeignKey("Instructor")]
-        public int InstructorID { get; set; }
+        public int PersonID { get; set; }
         [StringLength(50)][Display(Name = "Office Location")]
         public string Location { get; set; }
         //one-to-zero-or-one relationship  between the Instructor and the OfficeAssignment entities

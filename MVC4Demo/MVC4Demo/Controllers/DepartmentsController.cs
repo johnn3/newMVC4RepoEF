@@ -41,7 +41,7 @@ namespace MVC4Demo.Controllers
         // GET: Departments/Create
         public ActionResult Create()
         {
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FullName");
+            ViewBag.PersonID = new SelectList(db.Instructors, "PersonID", "FullName");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID,RowVersion")] Department department)
+        public ActionResult Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,PersonID,RowVersion")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace MVC4Demo.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "LastName", department.InstructorID);
+            ViewBag.PersonID = new SelectList(db.Instructors, "PersonID", "LastName", department.PersonID);
             return View(department);
         }
 
@@ -75,7 +75,7 @@ namespace MVC4Demo.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "LastName", department.InstructorID);
+            ViewBag.PersonID = new SelectList(db.Instructors, "PersonID", "LastName", department.PersonID);
             return View(department);
         }
 
@@ -85,7 +85,7 @@ namespace MVC4Demo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
-            [Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID,RowVersion")]
+            [Bind(Include = "DepartmentID,Name,Budget,StartDate,PersonID,RowVersion")]
             Department department)
         {
             try
@@ -115,9 +115,9 @@ namespace MVC4Demo.Controllers
                 if (databaseValues.StartDate != clientValues.StartDate)
                     ModelState.AddModelError("StartDate", "Current value: "
                         + String.Format("{0:d}", databaseValues.StartDate));
-                if (databaseValues.InstructorID != clientValues.InstructorID)
-                    ModelState.AddModelError("InstructorID", "Current value: "
-                        + db.Instructors.Find(databaseValues.InstructorID).FullName);
+                if (databaseValues.PersonID != clientValues.PersonID)
+                    ModelState.AddModelError("PersonID", "Current value: "
+                        + db.Instructors.Find(databaseValues.PersonID).FullName);
                 //A longer error message explains what happened and what to do about it
                 ModelState.AddModelError(string.Empty, "The record you attempted to edit "
                     + "was modified by another user after you got the original value. The "
@@ -133,7 +133,7 @@ namespace MVC4Demo.Controllers
                 ModelState.AddModelError(string.Empty, "Unable to save changes. Try again, and if the problem persists contact your system administrator.");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "LastName", department.InstructorID);
+            ViewBag.PersonID = new SelectList(db.Instructors, "PersonID", "LastName", department.PersonID);
             return View(department);
         }
 

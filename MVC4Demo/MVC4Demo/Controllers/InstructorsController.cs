@@ -40,9 +40,9 @@ namespace MVC4Demo.Controllers
                 //passed to that method result in only a single Instructor entity being
                 //returned. The Single method converts the collection into a single 
                 //Instructor entity, which gives you access to that entity's Courses property
-                ViewBag.InstructorID = id.Value;
+                ViewBag.PersonID = id.Value;
                 viewModel.Courses = viewModel.Instructors.Where(
-                    i => i.InstructorID == id.Value).Single().Courses;
+                    i => i.PersonID == id.Value).Single().Courses;
             }
 
             if (courseID != null)
@@ -94,7 +94,7 @@ namespace MVC4Demo.Controllers
         // GET: Instructors/Create
         public ActionResult Create()
         {
-            ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location");
+            ViewBag.PersonID = new SelectList(db.OfficeAssignments, "PersonID", "Location");
             return View();
         }
 
@@ -103,7 +103,7 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InstructorID,LastName,FirstMidName,HireDate")] Instructor instructor)
+        public ActionResult Create([Bind(Include = "PersonID,LastName,FirstMidName,HireDate")] Instructor instructor)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +112,7 @@ namespace MVC4Demo.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", instructor.InstructorID);
+            ViewBag.PersonID = new SelectList(db.OfficeAssignments, "PersonID", "Location", instructor.PersonID);
             return View(instructor);
         }
 
@@ -128,7 +128,7 @@ namespace MVC4Demo.Controllers
             Instructor instructor = db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Courses)
-                .Where(i => i.InstructorID == id)
+                .Where(i => i.PersonID == id)
                 .Single();
 
             PopulateAssignedCourseData(instructor); // for eager loading of data
@@ -137,7 +137,7 @@ namespace MVC4Demo.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", instructor.InstructorID); 
+            //ViewBag.PersonID = new SelectList(db.OfficeAssignments, "PersonID", "Location", instructor.PersonID); 
             //was replaced by the PopulateAssignedCourseData method
             return View(instructor);
         }
@@ -169,7 +169,7 @@ namespace MVC4Demo.Controllers
             var instructorToUpdate = db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Courses)
-                .Where(i => i.InstructorID == id)
+                .Where(i => i.PersonID == id)
                 .Single();
 
             if (TryUpdateModel(instructorToUpdate, "",
@@ -195,7 +195,7 @@ namespace MVC4Demo.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-            // ViewBag.InstructorID = new SelectList(db.OfficeAssignments, "InstructorID", "Location", id);
+            // ViewBag.PersonID = new SelectList(db.OfficeAssignments, "PersonID", "Location", id);
             //was replaced by the PopulateAssignedCourseData method
 
             PopulateAssignedCourseData(instructorToUpdate);
@@ -271,17 +271,17 @@ namespace MVC4Demo.Controllers
         {
             Instructor instructor = db.Instructors
         .Include(i => i.OfficeAssignment)
-        .Where(i => i.InstructorID == id)
+        .Where(i => i.PersonID == id)
         .Single();
 
             db.Instructors.Remove(instructor);
 
             var department = db.Departments
-    .Where(d => d.InstructorID == id)
+    .Where(d => d.PersonID == id)
     .SingleOrDefault();
             if (department != null)
             {
-                department.InstructorID = null;
+                department.PersonID = null;
             }
             db.SaveChanges();
             return RedirectToAction("Index");
