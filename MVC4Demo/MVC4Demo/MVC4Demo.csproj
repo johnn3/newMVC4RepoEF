@@ -175,14 +175,24 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="DAL\StudentRepository.cs" />
+    <Compile Include="DAL\IStudentRepository.cs" />
     <Compile Include="DAL\SchoolContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605101723516_InitialCreate.cs" />
-    <Compile Include="Migrations\201605101723516_InitialCreate.Designer.cs">
-      <DependentUpon>201605101723516_InitialCreate.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\201307230521326_InitialCreate.cs" />
+    <Compile Include="Migrations\201307230521326_InitialCreate.Designer.cs" />
+    <Compile Include="Migrations\201308010223252_MaxLengthOnNames.cs" />
+    <Compile Include="Migrations\201308010223252_MaxLengthOnNames.Designer.cs" />
+    <Compile Include="Migrations\201308010224298_ColumnFirstName.cs" />
+    <Compile Include="Migrations\201308010224298_ColumnFirstName.Designer.cs" />
+    <Compile Include="Migrations\201308010230063_Chap4.cs" />
+    <Compile Include="Migrations\201308010230063_Chap4.Designer.cs" />
+    <Compile Include="Migrations\201308012343369_RowVersion.cs" />
+    <Compile Include="Migrations\201308012343369_RowVersion.Designer.cs" />
+    <Compile Include="Migrations\201308020058557_Inheritance.cs" />
+    <Compile Include="Migrations\201308020058557_Inheritance.Designer.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -274,9 +284,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605101723516_InitialCreate.resx">
-      <DependentUpon>201605101723516_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307230521326_InitialCreate.resx" />
+    <EmbeddedResource Include="Migrations\201308010223252_MaxLengthOnNames.resx" />
+    <EmbeddedResource Include="Migrations\201308010224298_ColumnFirstName.resx" />
+    <EmbeddedResource Include="Migrations\201308010230063_Chap4.resx" />
+    <EmbeddedResource Include="Migrations\201308012343369_RowVersion.resx" />
+    <EmbeddedResource Include="Migrations\201308020058557_Inheritance.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

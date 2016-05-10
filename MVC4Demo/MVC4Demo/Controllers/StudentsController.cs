@@ -3,212 +3,192 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MVC4Demo.DAL;
 using MVC4Demo.Models;
+using MVC4Demo.DAL;
 using PagedList;
 
-namespace MVC4Demo.Controllers
+namespace ContosoUniversity.Controllers
 {
-    public class StudentsController : Controller
-    {
-        private SchoolContext db = new SchoolContext();
 
-        // GET: Students
-        //Changed the parameters w/ page param, current sort order, and filter
-        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
+        public class StudentController : Controller
         {
-            //added for the pagination
-            ViewBag.CurrentSort = sortOrder;
-            //The two ViewBag variables are used so that the view can configure the column
-            //heading hyperlinks with the appropriate query string values
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+            private IStudentRepository studentRepository;
 
-            //defaults to first page
-            if (searchString != null)
+            public StudentController()
             {
-                page = 1;
+                this.studentRepository = new StudentRepository(new SchoolContext());
             }
 
-            else
+            public StudentController(IStudentRepository studentRepository)
             {
-                searchString = currentFilter;
+                this.studentRepository = studentRepository;
             }
 
-            //query for students
-            var students = from s in db.Students
-                           select s;
+            //
+            // GET: /Student/
 
-            // check to see if a search term was added
-            if (!String.IsNullOrEmpty(searchString))
+            public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
             {
-                students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
-                           || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
-            }
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            switch (sortOrder)
-            {
-                case "Name_desc":
-                    students = students.OrderByDescending(s => s.LastName);
-                    break;
-                case "Date":
-                    students = students.OrderBy(s => s.EnrollmentDate);
-                    break;
-                case "Date_desc":
-                    students = students.OrderByDescending(s => s.EnrollmentDate);
-                    break;
-                default:
-                    students = students.OrderBy(s => s.LastName);
-                    break;
-            }
-
-            int pageSize = 3;
-            int pageNumber = (page ?? 1); //return the value of page if it has a value, or return 1 if page is null
-            return View(students.ToPagedList(pageNumber, pageSize));
-
-        }
-
-        // GET: Students/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
-        // GET: Students/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstName,EnrollmentDate")] Student student)
-        {
-            try
-            {
-
-                if (ModelState.IsValid)
+                if (searchString != null)
                 {
-                    db.Students.Add(student);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    page = 1;
                 }
-            }
-
-            catch (DataException /* dex */)
-            {
-                //Log the error (uncomment dex variable name after DataException and add a line here to write a log
-                ModelState.AddModelError("", "Unable to save the changes. Try again, and if the problem persists, please see your system administrator");
-            }
-            return View(student);
-        }
-
-        // GET: Students/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,LastName,FirstName,EnrollmentDate")] Student student)
-        {
-            try
-            {
-                if (ModelState.IsValid)
+                else
                 {
-                    db.Entry(student).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    searchString = currentFilter;
                 }
+                ViewBag.CurrentFilter = searchString;
+
+                var students = from s in studentRepository.GetStudents()
+                               select s;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
+                                           || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
+                }
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        students = students.OrderByDescending(s => s.LastName);
+                        break;
+                    case "Date":
+                        students = students.OrderBy(s => s.EnrollmentDate);
+                        break;
+                    case "date_desc":
+                        students = students.OrderByDescending(s => s.EnrollmentDate);
+                        break;
+                    default:  // Name ascending 
+                        students = students.OrderBy(s => s.LastName);
+                        break;
+                }
+
+                int pageSize = 3;
+                int pageNumber = (page ?? 1);
+                return View(students.ToPagedList(pageNumber, pageSize));
             }
 
-            catch (DataException /* dex */)
+            //
+            // GET: /Student/Details/5
+
+            public ViewResult Details(int id)
             {
-                //Log the error (uncomment dex variable name after DataException and add a line here to write a log
-                ModelState.AddModelError("", "Unable to save the changes. Try again, and if the problem persists, please see your system administrator");
+                Student student = studentRepository.GetStudentByID(id);
+                return View(student);
             }
-            return View(student);
-        }
 
-        // GET: Students/Delete/5
-        //This code accepts an optional Boolean parameter that indicates whether it was called after a failure to save changes.
-        //This parameter is false when the HttpGet Delete method is called without a previous failure. When it is called by the 
-        //HttpPost Delete method in response to a database update error, the parameter is true and an error message is passed to the view.
-        public ActionResult Delete(bool? saveChangesError=false, int id = 0)
-        {
-            if (saveChangesError.GetValueOrDefault())
+            //
+            // GET: /Student/Create
+
+            public ActionResult Create()
             {
-                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists, please see your system administrator";
+                return View();
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+
+            //
+            // POST: /Student/Create
+
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Create(
+               [Bind(Include = "LastName, FirstMidName, EnrollmentDate")]
+           Student student)
             {
-                return HttpNotFound();
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        studentRepository.InsertStudent(student);
+                        studentRepository.Save();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                    ModelState.AddModelError(string.Empty, "Unable to save changes. Try again, and if the problem persists contact your system administrator.");
+                }
+                return View(student);
             }
-            return View(student);
-        }
 
-        // POST: Students/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id) //Changed DeleteConfirmed to Delete which will give you a unique token signature
-        {
-            try
+            //
+            // GET: /Student/Edit/5
+
+            public ActionResult Edit(int id)
             {
-                //regular applications
-                //Student student = db.Students.Find(id);
-                //db.Students.Remove(student);
-
-                //new will help with high volume applications
-                Student studentToDelete = new Student() { PersonID = id };
-                db.Entry(studentToDelete).State = EntityState.Deleted;
-                db.SaveChanges();
+                Student student = studentRepository.GetStudentByID(id);
+                return View(student);
             }
 
-            catch (DataException /* dex */)
+            //
+            // POST: /Student/Edit/5
+
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Edit(
+               [Bind(Include = "LastName, FirstMidName, EnrollmentDate")]
+         Student student)
             {
-                //uncomment dex and log error.
-                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        studentRepository.UpdateStudent(student);
+                        studentRepository.Save();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                    ModelState.AddModelError(string.Empty, "Unable to save changes. Try again, and if the problem persists contact your system administrator.");
+                }
+                return View(student);
             }
 
-            return RedirectToAction("Index"); // go back to the index page
+            //
+            // GET: /Student/Delete/5
 
-        }
+            public ActionResult Delete(bool? saveChangesError = false, int id = 0)
+            {
+                if (saveChangesError.GetValueOrDefault())
+                {
+                    ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+                }
+                Student student = studentRepository.GetStudentByID(id);
+                return View(student);
+            }
 
-        //To make sure that database connections are properly closed and the 
-        //resources they hold freed up, you should see to it that the context instance is disposed. 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+            //
+            // POST: /Student/Delete/5
+
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Delete(int id)
+            {
+                try
+                {
+                    Student student = studentRepository.GetStudentByID(id);
+                    studentRepository.DeleteStudent(id);
+                    studentRepository.Save();
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                    return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                }
+                return RedirectToAction("Index");
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                studentRepository.Dispose();
+                base.Dispose(disposing);
+            }
         }
     }
-}
