@@ -46,7 +46,7 @@ namespace MVC4Demo.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
-                           || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
+                           || s.FirstName.ToUpper().Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)
@@ -97,7 +97,7 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Create([Bind(Include = "LastName,FirstName,EnrollmentDate")] Student student)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Edit([Bind(Include = "PersonID,LastName,FirstName,EnrollmentDate")] Student student)
         {
             try
             {

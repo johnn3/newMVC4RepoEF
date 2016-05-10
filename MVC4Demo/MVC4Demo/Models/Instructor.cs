@@ -20,7 +20,7 @@ namespace MVC4Demo.Models
         [Required]
         [Display(Name = "FirstName")]
         [StringLength(50, MinimumLength = 1)]
-        public string FirstMidName { get; set; }
+        public string FirstName { get; set; }
         */
 
         [DataType(DataType.Date)]
@@ -31,7 +31,7 @@ namespace MVC4Demo.Models
         /*
         public string FullName
         {
-            get { return LastName + ", " + FirstMidName; }
+            get { return LastName + ", " + FirstName; }
         }
         */
 

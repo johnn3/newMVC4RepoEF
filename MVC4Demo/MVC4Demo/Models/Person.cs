@@ -24,13 +24,13 @@ namespace MVC4Demo.Models
         [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "first name must be between 2 to 50 characters")]
         [Display(Name = "First Name")]
-        public string FirstMidName { get; set; }
+        public string FirstName { get; set; }
 
         public string FullName
         {
             get
             {
-                return (LastName + " " + FirstMidName);
+                return (LastName + " " + FirstName);
             }
         }
 

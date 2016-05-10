@@ -18,7 +18,7 @@ namespace MVC4Demo.Models
 
         public string FullName
         {
-            get { return LastName + ", " + FirstMidName; }
+            get { return LastName + ", " + FirstName; }
         }
 
 
@@ -29,7 +29,7 @@ namespace MVC4Demo.Models
         //update-database
 
         [Column("FirstName")]
-        public string FirstMidName { get; set; }
+        public string FirstName { get; set; }
         */ 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

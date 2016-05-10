@@ -103,7 +103,7 @@ namespace MVC4Demo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonID,LastName,FirstMidName,HireDate")] Instructor instructor)
+        public ActionResult Create([Bind(Include = "PersonID,LastName,FirstName,HireDate")] Instructor instructor)
         {
             if (ModelState.IsValid)
             {
@@ -173,7 +173,7 @@ namespace MVC4Demo.Controllers
                 .Single();
 
             if (TryUpdateModel(instructorToUpdate, "",
-               new string[] { "LastName", "FirstMidName", "HireDate", "OfficeAssignment" }))
+               new string[] { "LastName", "FirstName", "HireDate", "OfficeAssignment" }))
             {
                 try
                 {
