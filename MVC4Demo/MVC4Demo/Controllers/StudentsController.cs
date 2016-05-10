@@ -46,7 +46,7 @@ namespace MVC4Demo.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
-                           || s.FirstName.ToUpper().Contains(searchString.ToUpper()));
+                           || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)

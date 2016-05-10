@@ -179,29 +179,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605042041541_InitialCreate.cs" />
-    <Compile Include="Migrations\201605042041541_InitialCreate.Designer.cs">
-      <DependentUpon>201605042041541_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605052121523_MaxLengthOnNames.cs" />
-    <Compile Include="Migrations\201605052121523_MaxLengthOnNames.Designer.cs">
-      <DependentUpon>201605052121523_MaxLengthOnNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605052129554_ColumnFirstName.cs" />
-    <Compile Include="Migrations\201605052129554_ColumnFirstName.Designer.cs">
-      <DependentUpon>201605052129554_ColumnFirstName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605061531597_Chap4.cs" />
-    <Compile Include="Migrations\201605061531597_Chap4.Designer.cs">
-      <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605092047006_RowVersion.cs" />
-    <Compile Include="Migrations\201605092047006_RowVersion.Designer.cs">
-      <DependentUpon>201605092047006_RowVersion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605101541550_Inheritance.cs" />
-    <Compile Include="Migrations\201605101541550_Inheritance.Designer.cs">
-      <DependentUpon>201605101541550_Inheritance.cs</DependentUpon>
+    <Compile Include="Migrations\201605101723516_InitialCreate.cs" />
+    <Compile Include="Migrations\201605101723516_InitialCreate.Designer.cs">
+      <DependentUpon>201605101723516_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -294,23 +274,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605042041541_InitialCreate.resx">
-      <DependentUpon>201605042041541_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605052121523_MaxLengthOnNames.resx">
-      <DependentUpon>201605052121523_MaxLengthOnNames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605052129554_ColumnFirstName.resx">
-      <DependentUpon>201605052129554_ColumnFirstName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605061531597_Chap4.resx">
-      <DependentUpon>201605061531597_Chap4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605092047006_RowVersion.resx">
-      <DependentUpon>201605092047006_RowVersion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605101541550_Inheritance.resx">
-      <DependentUpon>201605101541550_Inheritance.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605101723516_InitialCreate.resx">
+      <DependentUpon>201605101723516_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
