@@ -7,8 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVC4Demo.Models
 {
-    public class Student
+    public class Student : Person //now references the person abstract class
     {
+        //this all gets referenced in the person abstract class
+        /*
         public int StudentID { get; set; }
         [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
@@ -19,6 +21,7 @@ namespace MVC4Demo.Models
             get { return LastName + ", " + FirstMidName; }
         }
 
+
         //The addition of the Column attribute changes the model backing the SchoolContext, 
         //so it won't match the database. Enter the following commands in the PMC to create another migration:
 
@@ -27,6 +30,7 @@ namespace MVC4Demo.Models
 
         [Column("FirstName")]
         public string FirstMidName { get; set; }
+        */ 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
             public DateTime EnrollmentDate { get; set; }
