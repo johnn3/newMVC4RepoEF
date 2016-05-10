@@ -6,6 +6,7 @@ namespace MVC4Demo.DAL
 {
     public class SchoolContext : DbContext
     {
+        public DbSet<Person> People { get; set; } //added later after the already established inst and stud.
         public DbSet<Student> Students{get; set;}
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -25,7 +26,7 @@ namespace MVC4Demo.DAL
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Instructors).WithMany(i => i.Courses)
                 .Map(t => t.MapLeftKey("CourseID")
-                .MapRightKey("InstructorID").ToTable("CourseInstructor"));
+                .MapRightKey("PersonID").ToTable("CourseInstructor"));
         }
 
     }

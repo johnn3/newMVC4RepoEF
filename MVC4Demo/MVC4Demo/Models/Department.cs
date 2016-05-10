@@ -34,11 +34,11 @@ namespace MVC4Demo.Models
         //type mapping so that the column will be defined using the SQL Server money type in the database
         [Display(Name = "Administrator")]
          //•A department may or may not have an administrator, and an administrator 
-        //is always an instructor. Therefore the InstructorID property is included 
+        //is always an instructor. Therefore the PersonID property is included 
         //as the foreign key to the Instructor entity, and a question mark is added 
         //after the int type designation to mark the property as nullable.The navigation 
         //property is named Administrator but holds an Instructor entity
-        public int? InstructorID { get; set; }
+        public int? PersonID { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

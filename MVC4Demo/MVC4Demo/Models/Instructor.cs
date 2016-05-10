@@ -9,7 +9,7 @@ namespace MVC4Demo.Models
     //the : Person was added afterwards, this is how to reference the person abstract class
     public class Instructor : Person
     {
-       // public int InstructorID { get; set; } //you reference the personID now, instead of this
+       // public int PersonID { get; set; } //you reference the personID now, instead of this
 
         /*
         [Required]
