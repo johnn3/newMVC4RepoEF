@@ -9,7 +9,9 @@ namespace MVC4Demo.Models
 
     //a couple of things to mention here--- this person class was created after the fact 
     //since the student and instructor classes were made prior with regards to simplifying those models
-    public class Person
+
+        //NOTE THAT THIS IS AN ABSTRACT CLASS
+    public abstract class Person
     {
         [Key]
         public int PersonID { get; set; }
