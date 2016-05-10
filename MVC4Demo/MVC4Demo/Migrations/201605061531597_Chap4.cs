@@ -15,7 +15,7 @@ namespace MVC4Demo.Migrations
                         Name = c.String(maxLength: 50),
                         Budget = c.Decimal(nullable: false, storeType: "money"),
                         StartDate = c.DateTime(nullable: false),
-                        InstructornID = c.Int(),
+                        InstructorID = c.Int(),
                     })
                 .PrimaryKey(t => t.DepartmentID)
                 .ForeignKey("dbo.Instructor", t => t.InstructorID)
